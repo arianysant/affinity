@@ -1,10 +1,10 @@
-// Este código substitui todo o conteúdo do seu arquivo teste2.zip/teste2/script.js
-// Depende que as variáveis 'firebase' e 'db' tenham sido inicializadas no index.html (Passo 3 da resposta anterior)
+// Este código substitui todo o conteúdo do seu arquivo affinity-main/teste2/script.js
 
 // =================================================================
 // DADOS INICIAIS E VARIÁVEIS DE ESTADO
 // =================================================================
 
+// Variáveis globais (devem ser inicializadas no index.html SEM 'const')
 var db; 
 var auth;
 
@@ -30,6 +30,7 @@ let state = {
     dataLoaded: false, 
 };
 
+// O appContainer ainda pode ser null neste ponto. Será usado dentro de render().
 const appContainer = document.getElementById('app-container');
 
 function setState(newState) {
@@ -296,7 +297,7 @@ async function removeMaterial(op, idx) {
 }
 
 // -------------------------------------------------------------
-// FUNÇÕES DE RENDERIZAÇÃO (MOVIDAS DO INDEX.HTML)
+// FUNÇÕES DE RENDERIZAÇÃO
 // -------------------------------------------------------------
 
 function renderLogin() {
@@ -304,10 +305,10 @@ function renderLogin() {
         <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
             <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
                 <div class="flex flex-col items-center mb-6">
-                    <img src="teste2.zip/teste2/img/images.png" 
-                         alt="Logo da Affinity" 
-                         class="w-40 h-auto rounded-lg mb-4"
-                         onerror="this.onerror=null; this.src='https://placehold.co/160x50/3730A3/ffffff?text=LOGO';" />
+                    <img src="img/images.png" 
+                        alt="Logo da Affinity" 
+                        class="w-40 h-auto rounded-lg mb-4"
+                        onerror="this.onerror=null; this.src='https://placehold.co/160x50/3730A3/ffffff?text=LOGO';" />
                     <h1 class="text-3xl font-bold text-indigo-700">Painel Affinity ABC</h1>
                     <p class="text-gray-500 mt-1">Acesso para Corretores e Assistentes</p>
                 </div>
@@ -566,6 +567,13 @@ function renderGerenciamentoCorretores() {
 }
 
 function render() {
+    // 🚨 AQUI a verificação é CRÍTICA. Se o HTML não carregou, appContainer será null.
+    const appContainer = document.getElementById('app-container');
+    if (!appContainer) {
+        console.error("Erro: Elemento 'app-container' não encontrado no DOM. O script está rodando cedo demais.");
+        return; // Sai da função se não conseguir encontrar o container
+    }
+
     if (!state.currentUser) {
         appContainer.innerHTML = renderLogin();
     } else {
@@ -577,7 +585,7 @@ function render() {
             content += renderGerenciamentoCorretores();
         }
 
-        appContainer.innerHTML = renderNav() + `<div class="pt-16">${content}</div>`;
+        appContainer.innerHTML = renderNav() + `<div id="custom-message-container"></div>` + `<div class="pt-16">${content}</div>`;
     }
 
     // Sempre anexa os eventos após renderizar o HTML
@@ -585,7 +593,7 @@ function render() {
 }
 
 // -------------------------------------------------------------
-// FUNÇÕES DE EVENTOS (MOVIDAS DO INDEX.HTML)
+// FUNÇÕES DE EVENTOS
 // -------------------------------------------------------------
 
 function attachEventListeners() {
@@ -670,8 +678,14 @@ function attachEventListeners() {
     }
 }
 
-// Inicia a aplicação
-// NOTA: A primeira renderização irá para a tela de Login
-// O loadData() é chamado DENTRO do handleLogin() após o sucesso da autenticação.
+// =================================================================
+// INICIALIZAÇÃO DA APLICAÇÃO
+// =================================================================
 
-render();
+// 🚨 CORREÇÃO CRÍTICA: Garante que o HTML foi totalmente carregado antes de chamar render()
+document.addEventListener('DOMContentLoaded', () => {
+    // A primeira renderização irá para a tela de Login
+    render(); 
+});
+
+// AQUI ESTAVA A CHAMADA RENDER() SOLTA QUE CAUSAVA O ERRO!
