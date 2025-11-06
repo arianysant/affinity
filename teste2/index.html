@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Affinity ABC</title>
+    <!-- Carrega Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Fundo Branco (Correto) */
+        }
+        /* Estilização para as listas de corretores */
+        .corretor-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); /* shadow-sm */
+            transition: all 0.2s;
+        }
+        .corretor-list-item:hover {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* hover:shadow-md */
+        }
+        .remove-corretor-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: #fef2f2; /* red-50 background */
+            font-weight: 500;
+            border: 1px solid #fca5a5;
+        }
+        .remove-corretor-button:hover {
+            background-color: #ef4444; /* red-600 background */
+            color: #fff; /* text-white */
+        }
+        /* Estilos para o Acordeão (FAQ) */
+        .faq-accordion summary {
+            list-style: none;
+        }
+        .faq-accordion summary::-webkit-details-marker {
+            display: none;
+        }
+        /* Rotaciona o ícone de seta quando o acordeão estiver aberto */
+        .faq-accordion[open] .faq-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBPDRjD--AWHOJnJrkqAd8R1_-qV8Jr6is",
+    authDomain: "affinityabc-c9ea4.firebaseapp.com",
+    projectId: "affinityabc-c9ea4",
+    storageBucket: "affinityabc-c9ea4.firebasestorage.app",
+    messagingSenderId: "609700236361",
+    appId: "1:609700236361:web:feeb0382d5f63d70380398",
+    measurementId: "G-E7K0FVQRN3"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+</head>
+<body class="min-h-screen">
+    <div id="app-container">
+        <!-- Conteúdo do App será injetado aqui -->
+    </div>
+
+</body>
+</html>
