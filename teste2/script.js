@@ -5,6 +5,9 @@
 // DADOS INICIAIS E VARIÁVEIS DE ESTADO
 // =================================================================
 
+var db; 
+var auth;
+
 const OPERADORAS = [
     "Trasmontano", "Amil", "SulAmérica", "Bradesco", "Vera Cruz", "Supermed",
     "Qualicorp", "Porto", "Hapvida", "Unihosp", "MedSênior", "Prevent Senior",
@@ -670,4 +673,5 @@ function attachEventListeners() {
 // Inicia a aplicação
 // NOTA: A primeira renderização irá para a tela de Login
 // O loadData() é chamado DENTRO do handleLogin() após o sucesso da autenticação.
+
 render();
